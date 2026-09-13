@@ -1,0 +1,14 @@
+RAG (Retrieval-Augmented Generation) is an AI framework that combines
+information retrieval with text generation.
+
+Unlike fine-tuning, RAG keeps the knowledge base separate from the model,
+allowing real-time updates without retraining.
+
+Key components include:
+1. Document ingestion and chunking
+2. Embedding generation
+3. Vector storage and retrieval
+4. LLM-based answer generation
+
+RAG systems are widely used in enterprise search, customer support,
+and knowledge management applications.
