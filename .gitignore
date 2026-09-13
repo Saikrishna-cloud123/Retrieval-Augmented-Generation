@@ -37,3 +37,7 @@ build/
 # Data artifacts (large files generated during ingestion)
 data/bm25_index/
 data/processed/
+
+PROJECT_CONTEXT.md
+requirements.txt
+

@@ -112,14 +112,36 @@ def main():
         count = vector_store.count()
         print(f"\n[+] Qdrant Collection '{vector_store.collection_name}' now contains {count} points.\n")
         
-        # Optional: Quick search test
-        test_query = "What is semantic search?"
-        print(f"  Testing Search Query: '{test_query}'")
-        query_vec = embedder.embed_query(test_query)
-        results = vector_store.search(query_vec, top_k=2)
-        for i, res in enumerate(results, 1):
-            score = res.metadata.get("similarity_score", 0.0)
-            print(f"    {i}. [Score: {score:.4f}] {res.text[:80]}...")
+        # Interactive Search Test
+        from src.config import settings
+        
+        print("\n" + "-" * 70)
+        print("  INTERACTIVE SEARCH (Type 'exit' or 'quit' to stop)")
+        print("-" * 70)
+        
+        while True:
+            user_query = input("\n  Enter search query: ").strip()
+            
+            if not user_query:
+                continue
+            if user_query.lower() in ['exit', 'quit']:
+                print("  Exiting search loop...")
+                break
+                
+            print(f"  Searching for: '{user_query}'")
+            query_vec = embedder.embed_query(user_query)
+            
+            # Using settings.top_k which defaults to 5
+            top_k_value = settings.top_k
+            results = vector_store.search(query_vec, top_k=top_k_value)
+            
+            print(f"\n  [ Top {len(results)} Results for '{user_query}' ]\n")
+            for i, res in enumerate(results, 1):
+                score = res.metadata.get("similarity_score", 0.0)
+                source = res.metadata.get("source", "unknown")
+                chunk_idx = res.metadata.get("chunk_index", "unknown")
+                print(f"    {i}. [Score: {score:.4f}] (Source: {source} | Chunk: {chunk_idx})")
+                print(f"       \"{res.text[:120].replace(chr(10), ' ')}...\"\n")
 
     except Exception as e:
         print(f"\n[!] Failed to connect or write to Qdrant: {e}")
