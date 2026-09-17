@@ -1,15 +1,3 @@
-"""
-Interactive Demo: Document Ingestion Pipeline (Milestones 1 & 2)
-
-Run with:
-    python demo.py
-
-This script demonstrates the end-to-end ingestion process:
-    1. Parsing raw files (.txt, .md, .pdf) -> Document objects
-    2. Text Cleaning & Normalization -> Clean Document objects
-    3. Recursive Text Chunking -> Embeddable Chunks with Metadata
-"""
-
 from pathlib import Path
 from src.ingestion.parser import DocumentParser
 from src.ingestion.cleaner import TextCleaner
