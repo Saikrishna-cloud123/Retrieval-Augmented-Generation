@@ -37,6 +37,7 @@ build/
 # Data artifacts (large files generated during ingestion)
 data/bm25_index/
 data/processed/
+data/qdrant_db/
 
 PROJECT_CONTEXT.md
 requirements.txt

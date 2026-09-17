@@ -13,7 +13,7 @@ pytest==8.3.5              # Testing framework
 # --- Future Milestones (uncomment when needed) ---
 sentence-transformers==3.1.1  # Milestone 3: Embedding generation
 qdrant-client==1.11.3         # Milestone 3: Vector database client
-# rank-bm25                 # Milestone 4: BM25 keyword search
+rank-bm25==0.2.2             # Milestone 4: BM25 keyword search
 # google-generativeai       # Milestone 6: Gemini LLM API
 # fastapi                   # Milestone 7: Web framework
 # uvicorn                   # Milestone 7: ASGI server for FastAPI

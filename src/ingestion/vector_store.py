@@ -60,18 +60,17 @@ class VectorStore:
         self.port = port or settings.qdrant_port
         self.collection_name = collection_name or settings.qdrant_collection_name
 
-        logger.info(f"Connecting to Qdrant at {self.host}:{self.port}")
-        self.client = QdrantClient(host=self.host, port=self.port, timeout=60.0)
-        
-        # Verify connection
         try:
-            # A simple call to ensure the server is responding
+            logger.info(f"Connecting to Qdrant server at {self.host}:{self.port}")
+            self.client = QdrantClient(host=self.host, port=self.port, timeout=5.0)
             self.client.get_collections()
-            logger.info("Connected to Qdrant successfully.")
+            logger.info("Connected to Qdrant server successfully.")
         except Exception as e:
-            logger.error(f"Failed to connect to Qdrant: {e}")
-            logger.error("Is the Docker container running? (docker ps)")
-            raise
+            logger.warning(
+                f"Could not connect to Qdrant server at {self.host}:{self.port} ({e}). "
+                "Falling back to local embedded Qdrant storage ('./data/qdrant_db')."
+            )
+            self.client = QdrantClient(path="./data/qdrant_db")
 
     def create_collection(self, vector_size: int, recreate: bool = False):
         """
